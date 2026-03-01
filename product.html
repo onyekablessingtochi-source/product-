@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PraizzFoodieExpress - Products</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="top-header">
+        <img src="logo.png" alt="Logo" class="logo-img">
+        <h1>PraizzFoodieExpress</h1>
+    </div>
+
+    <div class="header-center">
+        <input type="text" class="search-bar" placeholder="Search for meals...">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="header-right">
+        <a href="#">Sign In</a>
+        <a href="#">Orders</a>
+        <a href="#">Cart (0)</a>
+    </div>
+</header>
+
+<!-- PRODUCT LIST (Dynamic Category Products) -->
+<section class="products">
+    <h2 id="category-title">Products</h2>
+    <div class="dynamic-products product-grid"></div>
+</section>
+
+<!-- RECOMMENDED PRODUCTS -->
+<section class="recommended">
+    <h3>Customers also bought</h3>
+    <div class="recommended-grid product-grid">
+        <div class="product-card">
+            <img src="Burgerr.jpg" alt="Burger">
+            <h4>Beef Burger</h4>
+            <p class="price">$8.99</p>
+            <button>Order</button>
+        </div>
+        <div class="product-card">
+            <img src="rice.jpg" alt="Fried Rice">
+            <h4>Special Fried Rice</h4>
+            <p class="price">$10.99</p>
+            <button>Order</button>
+        </div>
+    </div>
+</section>
+
+<script>
+const products = {
+    rice: [
+        { name: "Jollof Rice", price: "$12.99", img: "Jollofrice.jpg" },
+        { name: "Fried Rice", price: "$10.99", img: "friedrice.jpg" }
+    ],
+    drinks: [
+        { name: "Coca-Cola", price: "$2.99", img: "coke.jpg" },
+        { name: "Orange Juice", price: "$3.99", img: "FreshJuice.jpg" }
+    ],
+    pizza: [
+        { name: "Cheese Pizza", price: "$15.99", img: "italian.jpg" },
+        { name: "Pepperoni Pizza", price: "$18.99", img: "chessy.jpg" }
+    ],
+    dessert: [
+        { name: "Oreo Dessert", price: "$15.99", img: "creamy.jpg" },
+        { name: "Fried Ice-Cream", price: "$18.99", img: "Special.jpg" }
+    ],
+    chicken: [
+        { name: "Grilled Chicken", price: "$15.99", img: "kfc.jpg" },
+        { name: "Crispy Chicken", price: "$18.99", img: "GrilledChicken.jpg" }
+    ]
+};
+
+// Get category from URL
+const params = new URLSearchParams(window.location.search);
+const category = params.get("category");
+
+// Select container and title
+const container = document.querySelector(".dynamic-products");
+const title = document.getElementById("category-title");
+
+// Display products
+if (products[category]) {
+    title.innerText = category.toUpperCase() + " MENU";
+
+    products[category].forEach(product => {
+        container.innerHTML += `
+            <div class="product-card">
+                <img src="${product.img}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">${product.price}</p>
+                <button>Order Now</button>
+            </div>
+        `;
+    });
+} else {
+    container.innerHTML = "<p>No products found.</p>";
+}
+</script>
+
+</body>
+</html>
